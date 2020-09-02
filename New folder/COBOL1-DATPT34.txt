@@ -1,0 +1,79 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. ASSIGNMENT1.
+       ENVIRONMENT DIVISION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION. 
+           01 CHUOI.
+               03 A OCCURS 10 TIMES.
+                    05 ACC PIC X(12).
+                    05 FILLER PIC X(2) VALUE '--'.
+                    05 PASS PIC 9(6).
+                    05 FILLER PIC X(2) VALUE '--'.
+                    05 TIEN PIC 9(6). 
+               03 CHECKA PIC 9(2) VALUE 1 . 
+           01 CHECK-LOG PIC 9(1) VALUE 1.  
+           01 ACCS PIC X(12).
+           01 PASSWORDSS PIC 9(6).  
+       SCREEN SECTION.
+           01 CLEAR-SCREEN.
+               02 BLANK SCREEN.
+       PROCEDURE DIVISION.  
+       PROGRAM-BEGIN.
+           
+           PERFORM UNTIL CHECKA > 10
+               ACCEPT ACC(CHECKA)
+               ACCEPT PASS(CHECKA)
+               ACCEPT TIEN(CHECKA)
+               DISPLAY A(CHECKA)
+               ADD 1 TO CHECKA
+           END-PERFORM.
+       
+       PERFORM UNTIL CHECK-LOG > 3      
+           DISPLAY 'NHAP ACCS LAN: ' CHECK-LOG
+           ACCEPT ACCS
+           DISPLAY 'NHAP PASSWORDSS LAN: ' CHECK-LOG
+           ACCEPT PASSWORDSS
+       IF ACCS = 'ADMIN' AND PASSWORDSS = 'ADMIN'
+           GO TO DISPLAYALL
+       ELSE        
+           MOVE 1 TO CHECKA
+           PERFORM VARYING CHECKA FROM 1 BY 1
+           UNTIL CHECKA > 10
+           IF ACCS = ACC(CHECKA) AND PASSWORDSS = PASS(CHECKA)
+           GO TO DISPLAY1
+       
+           ELSE
+         
+               IF CHECK-LOG > 3 
+               GO TO KONHAPNUA
+               END-IF
+           END-IF
+       
+           END-PERFORM  
+       END-IF
+       ADD 1 TO CHECK-LOG
+       END-PERFORM.
+       
+       PROGRAM-DONE.
+       STOP RUN.      
+
+       DISPLAYALL.
+           MOVE 1 TO CHECKA
+           PERFORM UNTIL CHECKA > 10
+               DISPLAY A(CHECKA)
+               ADD 1 TO CHECKA
+           END-PERFORM
+       STOP RUN.
+        
+       DISPLAY1.
+           DISPLAY 'BAN DA NHAP DUNG TK'.
+           DISPLAY A(CHECKA).             
+       STOP RUN.
+       
+       KONHAPNUA.
+           DISPLAY 'QUA 3 LAN ROI NHE, HET LUOT ROI A OI'.
+       STOP RUN.          
+       
+
+                     
+
